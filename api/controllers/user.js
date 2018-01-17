@@ -4,9 +4,12 @@
 var mongoosePaginate = require('mongoose-pagination');
 //para cifrar la contraseña
 var bcrypt = require('bcrypt-nodejs');
+//para el manejado de archivos
+var fs = require('fs');
+var path = require('path');
+
 //para generar los token
 var jwt = require('../services/jwt');
-
 //primera letra en mayus para indicar que es un modelo
 var User = require('../models/user');
 
@@ -225,6 +228,81 @@ function getUsers(req,res){
     })
 }
 
+function uploadImage(req, res){
+    var userId = req.params.id;
+
+    if(req.files){
+        var file_path = req.files.image.path;
+        var fil_split = file_path.split('\\');
+        var file_name = fil_split[2];
+        var ext_split = file_name.split('\.');
+        var file_extension = ext_split[1];
+
+        if(userId != req.user.sub){
+            return removeFilesOfUpload(res, file_path, "You haven't enoght permissions to adit this avatar") ;
+        }
+
+        if(file_extension == "png" ||
+           file_extension == "jpg" ||
+           file_extension == "jpeg" ||
+           file_extension == "gif"){
+
+            User.findByIdAndUpdate(userId, {image: file_name}, {new:true}, (err, userUpdated)=>{
+                //error
+                if(err){
+                    return res.status(500).send({
+                        message: "Error when updating user"
+                    });
+                }
+
+                if(!userUpdated){
+                    //En caso de que no devuelva nada
+                   return res.status(404).send({
+                        message: "The user doesn't exist"
+                    });
+                }
+
+                return res.status(200).send({
+                        user: userUpdated
+                    });
+
+            });
+        }else{
+            return removeFilesOfUpload(res, file_path, "There is no valid format");
+        }
+    }else{
+        return res.status(200).send({
+            message: "No files in the request"
+        });
+    }
+
+}
+
+//private
+function removeFilesOfUpload(res, file_path, message){
+    fs.unlink(file_path, (err)=>{
+        return res.status(200).send({
+            message: message
+        });
+    });
+}
+
+function getImageFile(req, res){
+    var image_file = req.params.imageFile;
+
+    var path_file = './uploads/users/'+image_file;
+
+    fs.exists(path_file, (exist)=>{
+        if(exist){
+            res.sendFile(path.resolve(path_file));
+        }else{
+            res.status(404).send({
+                message: "The image doesn't exists"
+            });
+        }
+    });
+}
+
 //lo exportamos como objeto para poder utilizarlo como user.function
 module.exports = {
     test,
@@ -232,5 +310,7 @@ module.exports = {
     loginUser,
     getUser,
     getUsers,
-    updateUser
+    updateUser,
+    uploadImage,
+    getImageFile
 }

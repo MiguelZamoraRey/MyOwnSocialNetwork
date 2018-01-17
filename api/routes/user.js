@@ -2,22 +2,26 @@
 
 var express = require('express');
 var UserController = require('../controllers/user');
+var multipart = require('connect-multiparty');
 
 var api = express.Router();
 
 //middleware de autenticación
-var mdAuth = require('../middlewares/autenticated');
+var md_auth = require('../middlewares/autenticated');
+//para la subida de archivos
+var md_upload = multipart({uploadDir: './uploads/users'});
 
-//como podemos ver llama al controlador para crear las rutas
-api.get('/test', mdAuth.ensureAuth , UserController.test);
 
-//param get obligatorio
-api.get('/user/:id', mdAuth.ensureAuth , UserController.getUser);
-//param get opcional
-api.get('/users/:pages?', mdAuth.ensureAuth , UserController.getUsers);
+api.get('/test', md_auth.ensureAuth , UserController.test);
 
-api.put('/user/:id', mdAuth.ensureAuth , UserController.updateUser);
+//param get obligatorio + ? = param opcional
+api.get('/user/:id', md_auth.ensureAuth , UserController.getUser);
+api.get('/users/:pages?', md_auth.ensureAuth , UserController.getUsers);
+api.get('/user-image/:imageFile', UserController.getImageFile);
+
+api.put('/user/:id', md_auth.ensureAuth , UserController.updateUser);
 api.post('/register', UserController.saveUser);
 api.post('/login', UserController.loginUser);
+api.post('/user-image/:id', [md_auth.ensureAuth, md_upload], UserController.uploadImage);
 
 module.exports = api;

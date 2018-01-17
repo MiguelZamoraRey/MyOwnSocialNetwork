@@ -17,6 +17,6 @@ mongoose.connect(
         console.log("Succesfully creation of the server at http://localhost:3800")
     });
 }).catch(err=>
-    concole.log(err)
+    console.log(err)
 );
 //fin BBDD connection------------------------------
