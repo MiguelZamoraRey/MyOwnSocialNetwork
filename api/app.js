@@ -5,7 +5,8 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-// Cargar rutas
+// Cargar rutas(carpeta routes, que llama al controlador, que a su vez llama a los modelos)
+var user_routes = require('./routes/user');
 
 
 // Middelwares --> metodo ejecutado antes de llegar al controlador
@@ -15,18 +16,9 @@ app.use(bodyParser.json());//siempre convierte en JSON lo que le llega por petic
 // Cors y cabeceras
 
 
-// Rutas
-app.get('/', (req, res)=> {
-    res.status(200).send({
-        message: 'Hi world!'
-    });
-});
+// Rutas -->uso de las rutas para sobreescribirlas
+app.use('/api', user_routes);
 
-app.get('/test', (req, res)=> {
-    res.status(200).send({
-        message: 'Test action in Node.js Server'
-    });
-});
 
 //exportar
 module.exports = app;

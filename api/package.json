@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon index.js"
+    "start": "nodemon index.js"
   },
   "keywords": [
     "Mean",
@@ -23,7 +23,8 @@
     "express": "^4.16.2",
     "jwt-simple": "^0.5.1",
     "moment": "^2.20.1",
-    "mongoose": "^4.13.9"
+    "mongoose": "^4.13.9",
+    "mongoose-pagination": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.14.11"
