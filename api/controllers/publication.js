@@ -98,7 +98,130 @@ function getPublications(req, res){
     });
 }
 
+function getPublication(req, res){
+    var publication_id = req.params.id;
+
+    Publication.findById(publication_id, (err, publication)=>{
+        if(err){
+            return res.status(500).send({
+                message:"error when getting publication"
+            });
+        } 
+
+        if(!publication){
+            return res.status(404).send({
+                message:"Publications no exist"
+            });
+        }
+
+        return res.status(200).send({publication});
+    })
+}
+
+function deletePublication(req,res){
+    var publication_id = req.params.id;
+
+    Publication.find({'user':req.user.sub, '_id':publication_id}).remove((err)=>{
+        if(err){
+            return res.status(500).send({
+                message:"error when deleting publication"
+            });
+        } 
+
+        if(!publicationRemoved){
+            return res.status(404).send({
+                message:"Publications is not deleted"
+            });
+        }
+
+        return res.status(200).send({
+            message: "The publication is now deleted"
+        });
+    });
+}
+
+function uploadImage(req, res){
+    var publication_Id = req.params.id;
+
+    if(req.files){
+        var file_path = req.files.image.path;
+        var fil_split = file_path.split('\\');
+        var file_name = fil_split[2];
+        var ext_split = file_name.split('\.');
+        var file_extension = ext_split[1];
+
+        if(file_extension == "png" ||
+           file_extension == "jpg" ||
+           file_extension == "jpeg" ||
+           file_extension == "gif"){
+
+            Publication.find({'user':req.user.sub, '_id':publication_id}).exec((err,publication)=>{
+                if (publication){
+                    Publication.findByIdAndUpdate(publication_Id, {file: file_name}, {new:true}, (err, publicationUpdated)=>{
+                        //error
+                        if(err){
+                            return res.status(500).send({
+                                message: "Error when updating publication"
+                            });
+                        }
+        
+                        if(!publicationUpdated){
+                            //En caso de que no devuelva nada
+                           return res.status(404).send({
+                                message: "The publication doesn't exist"
+                            });
+                        }
+        
+                        return res.status(200).send({
+                                publication: publicationUpdated
+                            });
+        
+                    });
+                }else{
+                    return removeFilesOfUpload(res, file_path, "You don't have permmision to edit this publication");
+                }
+            });
+        }else{
+            return removeFilesOfUpload(res, file_path, "There is no valid format");
+        }
+    }else{
+        return res.status(200).send({
+            message: "No files in the request"
+        });
+    }
+
+}
+
+//private
+function removeFilesOfUpload(res, file_path, message){
+    fs.unlink(file_path, (err)=>{
+        return res.status(200).send({
+            message: message
+        });
+    });
+}
+
+function getImageFile(req, res){
+    var image_file = req.params.imageFile;
+
+    var path_file = './uploads/publications/'+image_file;
+
+    fs.exists(path_file, (exist)=>{
+        if(exist){
+            res.sendFile(path.resolve(path_file));
+        }else{
+            res.status(404).send({
+                message: "The image doesn't exists"
+            });
+        }
+    });
+}
+
 module.exports ={
     savePublication,
-    getPublications
+    getPublications,
+    getPublication,
+    deletePublication,
+    uploadImage,
+    getImageFile
 }
