@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 //  para que cargue el objeto entero en la variable
 //  user a traves del populate
 var MessageSchema = Schema({
-    emmiter:  {type: Schema.ObjectId, ref: 'User'},
+    emitter:  {type: Schema.ObjectId, ref: 'User'},
     receiver:  {type: Schema.ObjectId, ref: 'User'},
     text: String,
     created_at: String,
