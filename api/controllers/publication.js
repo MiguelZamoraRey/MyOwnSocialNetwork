@@ -155,7 +155,7 @@ function uploadImage(req, res){
            file_extension == "jpeg" ||
            file_extension == "gif"){
 
-            Publication.find({'user':req.user.sub, '_id':publication_id}).exec((err,publication)=>{
+            Publication.findOne({'user':req.user.sub, '_id':publication_id}).exec((err,publication)=>{
                 if (publication){
                     Publication.findByIdAndUpdate(publication_Id, {file: file_name}, {new:true}, (err, publicationUpdated)=>{
                         //error

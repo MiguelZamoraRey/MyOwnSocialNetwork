@@ -14,6 +14,7 @@ var jwt = require('../services/jwt');
 var User = require('../models/user');
 
 var Follow = require('../models/follow');
+var Publication = require('../models/publication');
 
 function test(req, res){
     res.status(200).send({
@@ -332,14 +333,14 @@ function getCounters(req, res){
     if(req.params.id){
         userId = req.params.id;
     }else{
-        getCountFollow(userId).then((value)=>{
+        getAllCounters(userId).then((value)=>{
             return res.status(200).send(value);
         });
     }
 
 }
 
-async function getCountFollow(user_id){
+async function getAllCounters(user_id){
     //metodo .count como en mysql
     var following = await Follow.count({
         'user':user_id
@@ -360,9 +361,19 @@ async function getCountFollow(user_id){
         return count;
     });
 
+    var publications = await Publication.count({
+        'user':user_id
+    }).exec((err,count)=>{
+        if (err){
+            return handleError(err);
+        }
+        return count;
+    });
+
     return {
         following: following,
-        followed:followed
+        followed:followed,
+        publications: publications
     }
 }
 
