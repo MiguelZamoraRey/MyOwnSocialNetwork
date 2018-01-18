@@ -13,6 +13,8 @@ var jwt = require('../services/jwt');
 //primera letra en mayus para indicar que es un modelo
 var User = require('../models/user');
 
+var Follow = require('../models/follow');
+
 function test(req, res){
     res.status(200).send({
         message: 'Test action in Node.js Server'
@@ -189,13 +191,57 @@ function getUser(req,res){
             });
         }
 
-        return res.status(200).send({user});
+        //con el metodo then esperamos a que la promesa nos devuelva un valor
+        followThisUser(req.user.sub,userId).then((value)=>{
+            user.password=undefined;//para no devolverla
+            return res.status(200).send({
+                user,
+                followig: value.following,
+                followed: value.followed
+            });
+        });
+
     });
+}
+
+//async --> cuando se ejecute se esperara el resultado antes
+// de continuar de esta forma evitamos que al tardar mas una
+// consulta alguna variable no se rellene provocando fallos
+// el async devuelve lo que llamamos una PROMESA por lo que utilizamos el metodo then
+async function followThisUser(identity_user_id, user_Id){
+    //con ese await hacemos que esta llamada sea SINCRONA, esperando el resultado antes de seguir
+    var following = await Follow.findOne(//al que sigo
+        {"user":identity_user_id, "followed":user_Id}
+    ).exec((err,follow)=>{
+        //con el método handleError de node.js hacemos que se devuelva el error por consola
+        if(err){
+           return handleError(err);
+        }
+
+        return follow;
+    });
+
+    //con ese await hacemos que esta llamada sea SINCRONA, esperando el resultado antes de seguir
+    var followed = await Follow.findOne(//si me sigue
+        {"user":user_Id, "followed":identity_user_id}
+    ).exec((err,follow)=>{
+        //con el método handleError de node.js hacemos que se devuelva el error por consola
+        if(err){
+           return handleError(err);
+        }
+
+        return follow;
+    });
+
+    return {
+        following:following,
+        followed: followed
+    };
 }
 
 function getUsers(req,res){
     //obtenemos de user que hemos metido en el request a traves del middleware
-    var identity_user_id; req.user.sub;
+    var identity_user_id = req.user.sub;
     
     //valor por defecto
     var page = 1;
@@ -220,12 +266,104 @@ function getUsers(req,res){
                 });
             }
 
-            return res.status(200).send({
-                users,
-                total,
-                pages:  Math.ceil(total/itemsPerPage)
+            followUserIds(identity_user_id).then((value)=>{
+                return res.status(200).send({
+                    users,
+                    total,
+                    pages:  Math.ceil(total/itemsPerPage),
+                    users_following: value.following,
+                    users_follow_me: value.followed
+                });
             });
     })
+}
+
+//Con esta otra funcion asyncrona lo que vamos a hacer es
+// obtener dos arrays con los ids de los usuarios a los que
+// seguimos y nos siguen y la llamaremos desde el método getUsers
+async function followUserIds(user_Id){
+
+    //FOLLOWIG
+    //con el select desmarcamos campos que no queremos
+    var following = await Follow.find({
+        'user':user_Id
+    }).select({
+        '_id':0,
+        '__v':0,
+        'user':0
+    }).exec((err,follows)=>{
+        return follows;
+    });
+
+    //process following --> para que devuelva un array de ids limpio
+    var following_clean = [];
+    following.forEach((item)=>{
+        following_clean.push(item.followed);
+    });
+
+    //FOLLOWED
+    //con el select desmarcamos campos que no queremos
+    var followed = await Follow.find({
+        'followed':user_Id
+    }).select({
+        '_id':0,
+        '__v':0,
+        'followed':0
+    }).exec((err,follows)=>{
+        return follows;
+    });
+
+    //process followed --> para que devuelva un array de ids limpio
+    var followed_clean = [];
+    followed.forEach((item)=>{
+        followed_clean.push(item.user);
+    });
+
+    return {
+        following:following_clean,
+        followed:followed_clean
+    }
+}
+
+function getCounters(req, res){
+
+    var userId = req.user.sub;
+
+    if(req.params.id){
+        userId = req.params.id;
+    }else{
+        getCountFollow(userId).then((value)=>{
+            return res.status(200).send(value);
+        });
+    }
+
+}
+
+async function getCountFollow(user_id){
+    //metodo .count como en mysql
+    var following = await Follow.count({
+        'user':user_id
+    }).exec((err,count)=>{
+        if (err){
+            return handleError(err);
+        }
+        return count;
+    });
+
+    //metodo .count como en mysql
+    var followed = await Follow.count({
+        'followed':user_id
+    }).exec((err,count)=>{
+        if (err){
+            return handleError(err);
+        }
+        return count;
+    });
+
+    return {
+        following: following,
+        followed:followed
+    }
 }
 
 function uploadImage(req, res){
@@ -312,5 +450,6 @@ module.exports = {
     getUsers,
     updateUser,
     uploadImage,
-    getImageFile
+    getImageFile,
+    getCounters
 }
