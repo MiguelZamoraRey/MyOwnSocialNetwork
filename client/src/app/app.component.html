@@ -1,0 +1,85 @@
+<div class="navigation col-lg-12">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="#" class="navbar-brand">
+          {{title}}
+        </a>
+      </div>
+      <!--Solo los mostraremos cuando identity exista (logueado)-->
+      <ul class="nav navbar-nav" *ngIf="identity">
+        <li>
+          <a [routerLink]="['home']" [routerLinkActive]="['active']">
+            <span class="glyphicon glyphicon-home"></span>
+            Inicio
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="glyphicon glyphicon-th-list"></span>
+            Timeline
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="glyphicon glyphicon-user"></span>
+            People
+          </a>
+        </li>
+      </ul>
+      <!--Se muestran estas opciones cuando no estamos logados-->
+      <ul class="nav navbar navbar-nav navbar-right" *ngIf="!identity">
+          <li>
+            <a [routerLink]="['/login']" [routerLinkActive]="['active']">
+              <span class="glyphicon glyphicon-log-in"></span>
+              Login
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/register']" [routerLinkActive]="['active']">
+              <span class="glyphicon glyphicon-user"></span>
+              Register
+            </a>
+          </li>
+      </ul>
+
+      <ul class="nav navbar navbar-nav navbar-right" *ngIf="identity">
+        <li class="avatar">
+          <!--para la imagen de usuario-->
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown"  href="#">
+            {{identity.name}} <span class="caret"></span>
+          </a>
+
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-user"></span>
+                Profile
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-cog"></span>
+                My data
+              </a>
+            </li>
+            <li>
+              <a class="pointer" (click)="logout()">
+                <span class="glyphicon glyphicon-log-out"></span>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>
+
+<!-- Para poder acceder con el routing
+esta etiqueta siempre es la misma y nos cargara el contenido
+ de rutas -->
+<router-outlet></router-outlet>
+
