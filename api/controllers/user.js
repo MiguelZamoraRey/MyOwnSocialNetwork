@@ -152,26 +152,45 @@ function updateUser(req,res){
             message: "You don't have permmision to edit this user"
         });
     }
-    
-    //el new: true nos devuelve el objeto actualizado y no el original
-    User.findByIdAndUpdate(userId, update, {new: true}, (err, userUpdated)=>{
-        //error
-        if(err){
+
+    var nickOrMailIsAlreadyUsed=false;
+
+    User.find({ $or: [
+        {email: update.email.toLowerCase()},
+        {nick: update.nick.toLowerCase()}
+    ]}).exec((err, users)=>{
+        users.forEach((user)=>{
+            if(user && user._id != userId){
+                nickOrMailIsAlreadyUsed = true;
+            }
+        });        
+
+        if(nickOrMailIsAlreadyUsed){
             return res.status(500).send({
-                message:"Error when updating user"
-            });
-        }
-        //ok
-        if(!userUpdated){
-            //En caso de que no devuelva nada
-            res.status(404).send({
-                message:"The user doesn't exist"
+                message: "This data it's already in use"
             });
         }
 
-        return res.status(200).send({
-                    user: userUpdated
+        //el new: true nos devuelve el objeto actualizado y no el original
+        User.findByIdAndUpdate(userId, update, {new: true}, (err, userUpdated)=>{
+            //error
+            if(err){
+                return res.status(500).send({
+                    message:"Error when updating user"
                 });
+            }
+            //ok
+            if(!userUpdated){
+                //En caso de que no devuelva nada
+                return res.status(404).send({
+                    message:"The user doesn't exist"
+                });
+            }
+
+            return res.status(200).send({
+                        user: userUpdated
+                    });
+        });
     });
 }
 

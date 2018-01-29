@@ -74,12 +74,20 @@ export class UserService{
 
     getCounters(userId = null):Observable<any>{
         let headers = new HttpHeaders().set('Content-Type','application/json')
-                                     .set('Authorization',this.getToken());
+                                        .set('Authorization',this.getToken());
         
         if(userId !=null){
             return this._http.get(this.url+'user-counters/'+userId, {headers:headers});
         }else{
             return this._http.get(this.url+'user-counters/', {headers:headers});
         }
+    }
+
+    updateUser(user:User):Observable<any>{
+        let params = JSON.stringify(user);
+        let headers = new HttpHeaders().set('Content-Type','application/json')
+                                        .set('Authorization',this.getToken());
+        console.log(user);
+        return this._http.put(this.url+'user/' + user._id,params, {headers:headers});
     }
 }
