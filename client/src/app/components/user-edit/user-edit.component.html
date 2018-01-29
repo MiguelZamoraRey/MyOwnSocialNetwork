@@ -70,6 +70,19 @@
                 Valid email is required!
             </span>
         </p>
+
+        <div *ngIf="user.image">
+            <img src="{{url + 'get-image-user/' +user.image}}"/>
+        </div>
+
+        <p>
+            <label>Update your avatar</label>
+            <input 
+                type="file"
+                placeholder="Update image..."
+                (change)="fileChangeEvent($event)"
+            />
+        </p>
         <!--<p>
             <label>Password</label>
             <input 
