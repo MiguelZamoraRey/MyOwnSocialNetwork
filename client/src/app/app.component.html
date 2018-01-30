@@ -1,4 +1,4 @@
-<div class="navigation col-lg-12">
+<div class="navigation col-sm-12">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -11,17 +11,17 @@
         <li>
           <a [routerLink]="['home']" [routerLinkActive]="['active']">
             <span class="glyphicon glyphicon-home"></span>
-            Inicio
+            Home
           </a>
         </li>
         <li>
-          <a href="#">
+            <a [routerLink]="['timeline']" [routerLinkActive]="['active']">
             <span class="glyphicon glyphicon-th-list"></span>
             Timeline
           </a>
         </li>
         <li>
-          <a href="#">
+          <a [routerLink]="['people']" [routerLinkActive]="['active']">
             <span class="glyphicon glyphicon-user"></span>
             People
           </a>
@@ -46,6 +46,8 @@
       <ul class="nav navbar navbar-nav navbar-right" *ngIf="identity">
         <li class="avatar">
           <!--para la imagen de usuario-->
+          <img src="{{url + 'user-image/' +identity.image}}" *ngIf="identity && identity.image"/>
+          <img src="assets/default-user.jpg" *ngIf="!identity.image"/>
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown"  href="#">

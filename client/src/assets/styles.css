@@ -2,7 +2,7 @@
 .h1-strong{
     font-size: 35px;
     font-weight: bold;
-    margin-left: 13px;
+   /* margin-left: 13px;*/
     margin-bottom: 20px;
     border-bottom: 1px solid #eee;
     padding-bottom: 15px;
@@ -15,6 +15,127 @@
 .pointer{
     cursor: pointer;
 }
+
+.image-user-edit{
+    max-height: 100px;
+}
+
+/*PEOPLE*/
+
+.item-user .image-user{ 
+    width: 75px;
+    height: 75px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 9px;
+    margin-right: 15px;
+}
+
+.item-user .image-user img{ 
+    height: auto;
+    width: 150px;
+}
+
+.item-user .user-name{
+    margin-top: 20px;
+}
+
+.item-user .user-name{
+    margin-top: 20px;
+}
+
+.item-user .user-name .nickname{
+    color:#969393;
+}
+
+.item-user .user-name .name-surname a{
+    color:#d3322d;
+    font-weight:bold;
+}
+
+.item-user .user-name .name-surname a:hover{
+    color:#9c1111;
+    font-weight:bold;
+}
+
+.avatar-default{
+    width: 100% !important;
+}
+
+/*SideBar*/
+#user-card{
+    padding: 25px;
+}
+
+#new-publication{
+    padding: 10px;
+}
+
+#user-card .avatar{
+    width: 80px;
+    height: 80px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 9px;
+    margin-right: 15px;
+}
+
+#user-card .avatar img{
+    width: 100% !important;
+}
+
+#user-card .name-surname{
+    font-weight: 300;
+    font-size: 17px;
+}
+
+#user-card .name-surname a{
+    color: #555;
+}
+
+#user-card .name-surname .nickname{
+    color: #969393;
+}
+
+#user-card .label-stats,
+#user-card .number-stats{
+    display:block;
+    text-align:center;
+}
+
+#user-card .label-stats{
+    font-weight: bold;
+    color:#555;
+}
+
+#user-card .number-stats{
+    color: #9c1111;
+}
+
+#user-card .stats a:hover{
+    text-decoration: none;
+}
+
+#user-card .stats a:hover .number-stats{
+    color: #d3322d;
+    transition:all 300ms;
+}
+
+#user-card .stats a:hover .label-stats{
+    color: #969393;
+    transition:all 300ms;
+}
+
+#user-card .following-data{
+    margin-top:30px;
+    border-left: 1px solid #555;
+}
+
+#user-card .following-data:first-child{
+    border:none;
+}
+
+
 
 /*Header*/
 .navigation {
@@ -47,9 +168,47 @@
     background: #eee !important;
 }
 
+.navigation .avatar{
+    width: 35px;
+    height: 35px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 9px;
+    margin-right: 2px;
+}
+
+.navigation .avatar img{
+    /*height: auto;
+    width: 50px;*/
+    width:100% !important;
+}
+
 /*jumbotron home*/
 .jumbotron{
     padding: 25px;
     border-radius: 5px;
     text-align: center;
+}
+
+/*Publications*/
+#publications{
+   min-height: 500px;
+}
+
+.item-publication .nick-publication{
+    margin-top:10px;
+}
+
+.item-publication .image-user{ 
+    width: 75px;
+    height: 75px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 9px;
+    margin-right: 15px;
+}
+
+.item-publication .image-user img{ 
+    height: auto;
+    width: 150px;
 }

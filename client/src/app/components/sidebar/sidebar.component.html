@@ -1,0 +1,84 @@
+<div class="col-sm-4 col-xs-12">
+    <h1 class="h1-strong">{{identity.nick}}</h1>
+</div>
+
+<div id="user-card" class="col-sm-4 col-xs-12 panel panel-default pull-left">
+    <div class="avatar pull-left">
+        <img src="{{url + 'user-image/' + identity.image}}" *ngIf="identity.image"/>
+        <img src="assets/default-user.jpg" *ngIf="!identity.image"/>
+    </div>
+    <div class="name-surname pull-left">
+        <a href="#" class="username">
+                {{identity.name +' '+identity.surname}}
+        </a>
+        <p class="nickname">
+            hi!, {{identity.nick}}
+        </p>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="stats continer-fluid" *ngIf="stats">
+        <div class="following-data col-xs-4">
+            <a href="#">
+                <span class="label-stats">
+                    Following
+                </span>
+                <span class="number-stats">
+                    {{stats.following}}
+                </span>
+            </a>
+        </div>
+        <div class="following-data col-xs-4">
+            <a href="#">
+                <span class="label-stats">
+                    Followed
+                </span>
+                <span class="number-stats">
+                    {{stats.followed}}
+                </span>
+            </a>
+        </div>
+        <div class="following-data col-xs-4">
+            <a href="#">
+                <span class="label-stats">
+                    Publications
+                </span>
+                <span class="number-stats">
+                    {{stats.publications}}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!--formulario de publicaciones-->
+<div id="new-publication" class=" panel panel-default col-sm-4 col-xs-12 pull-left">
+    <div class="alert alert-success" *ngIf="status == 'success'">
+        The publication is shared
+    </div>
+
+    <div class="alert alert-dager" *ngIf="status == 'error'">
+        Ops... we have a problem :(, try to do it in a few minutes...
+    </div>
+    <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm)" class="col-xs-10">
+        <p>
+            <label>
+                What do you want to share?
+            </label>
+            <textarea name="text" #text="ngModel" [(ngModel)]="publication.text"
+                class="form-control" required></textarea>
+            <span *ngIf="!text.valid && text.touched">
+                The text is required
+            </span>
+        </p>
+        <p>
+            <label>Share a photo</label>
+            <input type="file" placeholder="upload image..."/>
+        </p>
+        <input type="submit" value="Share" 
+            class="btn btn-success" 
+            [disabled]="!newPubForm.valid"/>
+    </form>
+</div>

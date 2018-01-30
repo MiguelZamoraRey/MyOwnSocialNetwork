@@ -49,8 +49,10 @@ function getPublications(req, res){
     var page = 1;
 
     if(req.params.page){
-        page =  req.params.page;
+        page = req.params.page;
     }
+    console.log(req.params);
+    console.log(page);
 
     var itemsPerPage = 4;
 
@@ -91,6 +93,7 @@ function getPublications(req, res){
                 total_items: total,
                 pages: Math.ceil(total/itemsPerPage),
                 page: page,
+                items_per_page: itemsPerPage,
                 publications:publications
             });
         });

@@ -34,7 +34,7 @@ function saveFollow(req, res){
 function deleteFollow(req,res){
     var userId = req.user.sub;
     var followId= req.params.id;
-
+    
     Follow.find({
         'user':userId,
         'followed':followId

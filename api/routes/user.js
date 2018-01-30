@@ -16,7 +16,7 @@ api.get('/test', md_auth.ensureAuth , UserController.test);
 
 //param get obligatorio + ? = param opcional
 api.get('/user/:id', md_auth.ensureAuth , UserController.getUser);
-api.get('/users/:pages?', md_auth.ensureAuth , UserController.getUsers);
+api.get('/users/:page?', md_auth.ensureAuth , UserController.getUsers);
 api.get('/user-image/:imageFile', UserController.getImageFile);
 api.get('/user-counters/:id?', md_auth.ensureAuth, UserController.getCounters);
 

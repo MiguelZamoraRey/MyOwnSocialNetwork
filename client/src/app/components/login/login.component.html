@@ -1,11 +1,11 @@
-<div class="col-lg-5">
+<div class="col-sm-5 col-xs-12">
         <h1 class="h1-strong">
             {{title}}
         </h1>
         <div class="alert alert-danger" *ngIf="status == 'error'">
             Incorrect email or password
         </div>
-        <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="col-sm-12 col-xs-12">
                 <p>
                     <label>Email</label>
                     <input 

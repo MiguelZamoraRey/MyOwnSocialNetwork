@@ -90,4 +90,20 @@ export class UserService{
         console.log(user);
         return this._http.put(this.url+'user/' + user._id,params, {headers:headers});
     }
+
+    /*Obtiene los usuarios(por pag?)*/
+    getUsers(page = null):Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type','application/json')
+                                        .set('Authorization',this.getToken());
+
+        return this._http.get(this.url+'users/'+page,{headers:headers});
+    }
+
+    /*obtiene un unico usuario*/
+    getUser(id):Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type','application/json')
+                                        .set('Authorization',this.getToken());
+
+        return this._http.get(this.url+'user/'+id,{headers:headers});
+    }
 }

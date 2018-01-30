@@ -456,6 +456,7 @@ function removeFilesOfUpload(res, file_path, message){
 }
 
 function getImageFile(req, res){
+    
     var image_file = req.params.imageFile;
 
     var path_file = './uploads/users/'+image_file;

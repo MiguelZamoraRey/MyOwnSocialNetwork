@@ -13,6 +13,9 @@ import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
 import {HomeComponent} from './components/home/home.component';
 import {UserEditComponent} from './components/user-edit/user-edit.component';
+import { UsersComponent } from './components/users/users.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { TimelineComponent } from './components/timeline/timeline.component';
 
 @NgModule({
   //aqui se cargan los componentes
@@ -21,7 +24,10 @@ import {UserEditComponent} from './components/user-edit/user-edit.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    UserEditComponent
+    UserEditComponent,
+    UsersComponent,
+    SidebarComponent,
+    TimelineComponent
   ],
   //aqui se cargan modulos
   imports: [
@@ -30,7 +36,7 @@ import {UserEditComponent} from './components/user-edit/user-edit.component';
     HttpClientModule,
     routing
   ],
-  //servicios de manera global
+  //servicios
   providers: [
     appRoutingProviders
   ],
