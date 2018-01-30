@@ -4,8 +4,9 @@ import { FormsModule } from '@angular/forms';
 //import { HttpModule } from '@angular/http';//old
 import { HttpClientModule } from '@angular/common/http';//new
 
-//routes imports
+//routes imports(modulos)
 import { routing, appRoutingProviders } from './app.routing';
+import {MomentModule} from 'angular2-moment';
 
 //componentes
 import { AppComponent } from './app.component';
@@ -34,7 +35,8 @@ import { TimelineComponent } from './components/timeline/timeline.component';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    routing
+    routing,
+    MomentModule
   ],
   //servicios
   providers: [

@@ -51,8 +51,6 @@ function getPublications(req, res){
     if(req.params.page){
         page = req.params.page;
     }
-    console.log(req.params);
-    console.log(page);
 
     var itemsPerPage = 4;
 
@@ -72,6 +70,9 @@ function getPublications(req, res){
         follows.forEach((item)=>{
             follows_clean.push(item.followed);
         });
+
+        //aqui nos añadimos para ver tambien nuestras propias publicaciones
+        follows_clean.push(req.user.sub);
 
         //con la propiedad in podemos buscar dentro de una variable
         Publication.find({

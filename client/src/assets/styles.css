@@ -212,3 +212,7 @@
     height: auto;
     width: 150px;
 }
+
+.item-publication .date-publication{
+    color:grey;
+}

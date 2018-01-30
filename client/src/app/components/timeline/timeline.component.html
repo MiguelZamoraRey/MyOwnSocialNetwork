@@ -4,13 +4,25 @@
         <div *ngFor="let publication of publications" class="item-publication">
             <div class="panel panel-default">
                 <div class="panel-body">
+                    
                     <div class="image-user pull-left">
                         <a href="#">
-                            <img alt="" src="{{url+'user-image/' + publication.user.image}}" *ngIf="publication.user.image"/>
+                            <img class="avatar-default" src="{{url+'user-image/' + publication.user.image}}" *ngIf="publication.user.image"/>
                             <img class="avatar-default" alt="" src="assets/default-user.jpg" *ngIf="!publication.user.image"/>
                         </a>
                     </div>
-                    <div class="nick-publication">{{publication.user.nick}}</div>
+
+                    <div>
+                        <span class="nick-publication">
+                            {{publication.user.nick}}
+                        </span>
+                                &nbsp;|&nbsp;
+                        <span class="date-publication">
+                            <!--Esta cosa horrible se hace con la libreria de angular2 moment y consiste en pasarle pipes para modificarla-->
+                            {{ (publication.created_at | amFromUnix) | amTimeAgo}}
+                        </span>
+                    </div>
+
                     <h4 class="publication-text pull-left">
                         {{publication.text}}
                     </h4>
