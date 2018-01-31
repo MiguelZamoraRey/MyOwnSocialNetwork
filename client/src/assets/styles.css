@@ -32,8 +32,7 @@
 }
 
 .item-user .image-user img{ 
-    height: auto;
-    width: 150px;
+    width:100% !important;
 }
 
 .item-user .user-name{
@@ -135,8 +134,6 @@
     border:none;
 }
 
-
-
 /*Header*/
 .navigation {
     padding: 0px !important;
@@ -216,3 +213,75 @@
 .item-publication .date-publication{
     color:grey;
 }
+
+/*profile*/
+#data-profile{
+    min-height: 500px;
+    text-align: center;
+}
+
+#data-profile .avatar{
+    width: 185px;
+    height: 185px;
+    border-radius: 400px;
+    overflow: hidden;
+    margin: 0px auto;
+    margin-top:25px;
+}
+
+#data-profile .avatar img{ 
+    width: 100% !important;
+}
+
+#data-profile .user-name{ 
+    padding: 15px;
+    font-weight: bold;
+}
+
+#data-profile .user-name .nickname{
+    color:#d3322d !important;
+    font-size: 24px;
+}
+
+#data-profile .user-name .name-surname{
+    color:#ccc !important;
+    font-size: 19px;
+}
+
+#data-profile .profile-followed-label{
+    font-size: 15px;
+    color: #555;
+    margin: 0px auto;
+    padding: 5px;
+}
+
+#data-profile .profile-following-label-ok{
+    font-size: 15px;
+    color: #5cb85c;
+    margin: 0px auto;
+    padding: 5px;
+}
+
+#data-profile .profile-following-label-no{
+    font-size: 15px;
+    color: #555;
+    margin: 0px auto;
+    padding: 5px;
+}
+
+#data-profile .profile-followed-btn{
+    font-size: 15px;
+    color: #5cb85c;
+    margin: 0px auto;
+    padding: 5px;
+}
+
+#data-profile .btn-inter{
+    font-size: 15px;
+    margin: 0px auto;
+    padding: 5px;
+    width: 100%;
+}
+
+
+

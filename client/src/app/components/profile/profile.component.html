@@ -1,0 +1,59 @@
+<div class="col-sm-8 col-xs-12">
+    <h1 class="h1-strong">
+        {{title}}
+    </h1>
+
+    <div id="data-profile" class="panel panel-default" *ngIf="user">
+        <div class="avatar">
+            <img src="{{url + 'user-image/' + user.image}}" *ngIf="user.image"/>
+            <img src="assets/default-user.jpg" *ngIf="!user.image"/>
+        </div>
+        <div class="user-name">
+            <div class="col-xs-6">
+                <p class="nickname">
+                    {{user.nick}}
+                </p>
+                <p class="name-surname">
+                    {{user.name + ' ' + user.surname}}
+                </p>
+            </div>
+            <div class="col-xs-6">
+                <div class="col-xs-6">
+                    <span class="glyphicon glyphicon-ok profile-followed-label" *ngIf="followed"> Is following you</span>
+                    <span class="glyphicon glyphicon-remove profile-followed-label" *ngIf="!followed"> Is not following you</span>
+                </div>
+                <div class="col-xs-6">
+                    <span class="glyphicon glyphicon-ok-sign profile-following-label-ok" *ngIf="following"> You are Following</span>
+                    <span class="glyphicon glyphicon-plus-sign profile-following-label-no" *ngIf="!following"> You are not Following</span>
+                </div> 
+                
+                <button 
+                    class="btn btn-primary btn-inter" 
+                    *ngIf="following" 
+                    (click)="unfollowUser(user._id)"
+                    (mouseenter)="mouseEnter(user._id)"
+                    (mouseleave)="mouseLeave()"
+                    [class.btn-danger]="user._id == followUserOver"
+                    >
+                        <span *ngIf="user._id == followUserOver; else followingTemp">
+                            Dejar de seguir
+                        </span>
+                        <ng-template #followingTemp>
+                            <span>
+                                Siguiendo
+                            </span>
+                        </ng-template>
+                </button>
+
+                <button 
+                    class="btn btn-primary btn-inter" 
+                    *ngIf="!following" 
+                    (click)="followUser(user._id)">
+                        Comenzar a seguir
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<sidebar></sidebar>

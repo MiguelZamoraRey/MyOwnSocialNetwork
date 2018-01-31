@@ -216,7 +216,7 @@ function getUser(req,res){
             user.password=undefined;//para no devolverla
             return res.status(200).send({
                 user,
-                followig: value.following,
+                following: value.following,
                 followed: value.followed
             });
         });

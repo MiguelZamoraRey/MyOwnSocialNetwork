@@ -1,6 +1,10 @@
 import { Component, OnInit} from '@angular/core';
 import {GLOBAL} from '../../services/global';
 import {Publication} from '../../models/publication';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+/*Los siguientes import son tambien de angular core pero nos serviran para comunicar un componente con otro*/
+import { EventEmitter, Input, Output} from '@angular/core';
+
 
 /*Importe del servicio*/
 import {UserService} from '../../services/user.service';
@@ -21,7 +25,9 @@ export class SidebarComponent implements OnInit{
 
     constructor(
         private _userService:UserService,
-        private _publicationService:PublicationService
+        private _publicationService:PublicationService,
+        private _route:ActivatedRoute,
+        private _router:Router
     ){
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
@@ -40,6 +46,7 @@ export class SidebarComponent implements OnInit{
                 if(response.publication){
                     newPubForm.reset();
                     this.status = "success";
+                    this._router.navigate(['/timeline']);
                 }else{
                     this.status = "error";
                 }
@@ -52,5 +59,11 @@ export class SidebarComponent implements OnInit{
                 }
             }
         );
+    }
+
+    /*para exportar eventos*/
+    @Output() sended = new EventEmitter();
+    sendPublication(event){
+        this.sended.emit({send:'true'});
     }
 }

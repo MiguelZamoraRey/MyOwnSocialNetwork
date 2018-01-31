@@ -11,6 +11,7 @@ import {HomeComponent} from './components/home/home.component';
 import {UserEditComponent} from './components/user-edit/user-edit.component';
 import { UsersComponent } from './components/users/users.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 //definimos en una constante las rutas que queremos
 const appRoutes: Routes = [
@@ -22,6 +23,7 @@ const appRoutes: Routes = [
     {path:'people/:page', component:UsersComponent},
     {path:'people', component:UsersComponent},
     {path:'timeline', component:TimelineComponent},
+    {path:'profile/:id', component:ProfileComponent},
     {path:'**', component:HomeComponent}
 ];
 
