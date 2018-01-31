@@ -9,7 +9,6 @@ var Message = require('../models/message');
 
 function saveMessage(req,res){
     var params = req.body;
-    console.log(params);
     if(!params.text || !params.receiver){
         return res.status(200).send({
             message:"Insuficient Parameters"

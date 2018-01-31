@@ -61,7 +61,7 @@ export class TimelineComponent implements OnInit{
 
                         /*smooth scroll */
                         $("html, body").animate(
-                            {scrollTop: $('body').prop("scrollHeight")},
+                            {scrollTop: $('html').prop("scrollHeight")},
                             500
                         );
                     }
@@ -82,12 +82,12 @@ export class TimelineComponent implements OnInit{
 
     public noMore = false;
     viewMore(){
-        if(this.publications.length == (this.total)){
+        this.page++;
+        if(this.page == this.pages){
             this.noMore=true;
-        }else{
-            this.page++;
-            this.getPublications(this.page,true);
         }
+        
+        this.getPublications(this.page,true);
     }
 
     //se llama desde la plantilla cuando el sidebar envia una publicacion

@@ -3,21 +3,27 @@
         {{title}}
     </h1>
 
-    <div id="data-profile" class="panel panel-default" *ngIf="user">
-        <div class="avatar">
-            <img src="{{url + 'user-image/' + user.image}}" *ngIf="user.image"/>
-            <img src="assets/default-user.jpg" *ngIf="!user.image"/>
-        </div>
-        <div class="user-name">
+    <div id="data-profile" *ngIf="user && identity">
+        <div class="row">
             <div class="col-xs-6">
-                <p class="nickname">
-                    {{user.nick}}
-                </p>
-                <p class="name-surname">
-                    {{user.name + ' ' + user.surname}}
-                </p>
+                <div class="avatar">
+                    <img src="{{url + 'user-image/' + user.image}}" *ngIf="user.image"/>
+                    <img src="assets/default-user.jpg" *ngIf="!user.image"/>
+                </div>
             </div>
             <div class="col-xs-6">
+                <div class="user-name">
+                    <p class="nickname">
+                        {{user.nick}}
+                    </p>
+                    <p class="name-surname">
+                        {{user.name + ' ' + user.surname}}
+                    </p>
+                </div>
+            </div>
+        </div>        
+        <div class="row user-name" *ngIf="user._id != identity._id">
+            <div class="col-xs-12">
                 <div class="col-xs-6">
                     <span class="glyphicon glyphicon-ok profile-followed-label" *ngIf="followed"> Is following you</span>
                     <span class="glyphicon glyphicon-remove profile-followed-label" *ngIf="!followed"> Is not following you</span>
@@ -25,8 +31,9 @@
                 <div class="col-xs-6">
                     <span class="glyphicon glyphicon-ok-sign profile-following-label-ok" *ngIf="following"> You are Following</span>
                     <span class="glyphicon glyphicon-plus-sign profile-following-label-no" *ngIf="!following"> You are not Following</span>
-                </div> 
-                
+                </div>
+                <br/>
+                <br/>
                 <button 
                     class="btn btn-primary btn-inter" 
                     *ngIf="following" 
@@ -52,6 +59,41 @@
                         Comenzar a seguir
                 </button>
             </div>
+        </div>
+        <div class="stats row continer-fluid" *ngIf="stats">
+            <div class="following-data col-xs-4">
+                <a href="#">
+                    <span class="label-stats">
+                        Following
+                    </span>
+                    <span class="number-stats">
+                        {{stats.following}}
+                    </span>
+                </a>
+            </div>
+            <div class="following-data col-xs-4">
+                <a href="#">
+                    <span class="label-stats">
+                        Followed
+                    </span>
+                    <span class="number-stats">
+                        {{stats.followed}}
+                    </span>
+                </a>
+            </div>
+            <div class="following-data col-xs-4">
+                <a href="#">
+                    <span class="label-stats">
+                        Publications
+                    </span>
+                    <span class="number-stats">
+                        {{stats.publications}}
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div *ngIf="user" class="profile-publications">
+            <publications [user]="user._id"></publications>
         </div>
     </div>
 </div>

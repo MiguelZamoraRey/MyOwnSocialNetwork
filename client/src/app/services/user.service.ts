@@ -75,7 +75,6 @@ export class UserService{
     getCounters(userId = null):Observable<any>{
         let headers = new HttpHeaders().set('Content-Type','application/json')
                                         .set('Authorization',this.getToken());
-        
         if(userId !=null){
             return this._http.get(this.url+'user-counters/'+userId, {headers:headers});
         }else{

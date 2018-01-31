@@ -92,6 +92,11 @@
     color: #555;
 }
 
+#user-card .name-surname a:hover{
+    text-decoration: none;
+    color: #9c1111;
+}
+
 #user-card .name-surname .nickname{
     color: #969393;
 }
@@ -194,6 +199,13 @@
 
 .item-publication .nick-publication{
     margin-top:10px;
+    color:black;
+}
+
+.item-publication .nick-publication:hover{
+    margin-top:10px;
+    color:#9c1111;
+    text-decoration: none;
 }
 
 .item-publication .image-user{ 
@@ -214,6 +226,11 @@
     color:grey;
 }
 
+.item-publication .publication-image{
+    width:80%;
+    margin:0 auto;
+}
+
 /*profile*/
 #data-profile{
     min-height: 500px;
@@ -221,21 +238,21 @@
 }
 
 #data-profile .avatar{
-    width: 185px;
-    height: 185px;
-    border-radius: 400px;
+    width: 150px;
+    height: 150px;
+    border-radius: 300px;
     overflow: hidden;
-    margin: 0px auto;
-    margin-top:25px;
+    margin:0 auto;
 }
 
 #data-profile .avatar img{ 
-    width: 100% !important;
+    height: 100% !important;
 }
 
 #data-profile .user-name{ 
     padding: 15px;
     font-weight: bold;
+    margin:0 auto;
 }
 
 #data-profile .user-name .nickname{
@@ -283,5 +300,45 @@
     width: 100%;
 }
 
+#data-profile .label-stats,
+#data-profile .number-stats{
+    display:block;
+    text-align:center;
+}
 
+#data-profile .label-stats{
+    font-weight: bold;
+    color:#555;
+}
+
+#data-profile .number-stats{
+    color: #9c1111;
+}
+
+#data-profile .stats a:hover{
+    text-decoration: none;
+}
+
+#data-profile .stats a:hover .number-stats{
+    color: #d3322d;
+    transition:all 300ms;
+}
+
+#data-profile .stats a:hover .label-stats{
+    color: #969393;
+    transition:all 300ms;
+}
+
+#data-profile .following-data{
+    margin-top:15px;
+    border-left: 1px solid #555;
+}
+
+#data-profile .following-data:first-child{
+    border:none;
+}
+
+.profile-publications{
+    margin-top: 30px;
+}
 

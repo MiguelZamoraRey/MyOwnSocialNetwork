@@ -346,17 +346,15 @@ async function followUserIds(user_Id){
 }
 
 function getCounters(req, res){
-
     var userId = req.user.sub;
 
     if(req.params.id){
         userId = req.params.id;
-    }else{
-        getAllCounters(userId).then((value)=>{
-            return res.status(200).send(value);
-        });
     }
 
+    getAllCounters(userId).then((value)=>{
+        return res.status(200).send(value);
+    });
 }
 
 async function getAllCounters(user_id){

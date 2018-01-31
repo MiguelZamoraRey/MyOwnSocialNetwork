@@ -8,7 +8,7 @@
         <img src="assets/default-user.jpg" *ngIf="!identity.image"/>
     </div>
     <div class="name-surname pull-left">
-        <a href="#" class="username">
+        <a [routerLink]="['/profile',identity._id]" class="username">
                 {{identity.name +' '+identity.surname}}
         </a>
         <p class="nickname">
@@ -75,7 +75,7 @@
         </p>
         <p>
             <label>Share a photo</label>
-            <input type="file" placeholder="upload image..."/>
+            <input type="file" placeholder="upload image..." (change)="fileChangeEvent($event)"/>
         </p>
         <input type="submit" value="Share" 
             class="btn btn-success" 

@@ -57,8 +57,6 @@ export class ProfileComponent implements OnInit{
             response=>{
                 if(response.user){
                     this.user=response.user;
-                    console.log(response);
-
                     if(response.following && response.following._id){
                         this.following = true;
                     }else{
@@ -85,12 +83,12 @@ export class ProfileComponent implements OnInit{
     }
 
     getCounters(id){
+        console.log('counters');
         this._userService.getCounters(id).subscribe(
             response=>{
                 if(response){
-                    /*followed
-                    following
-                    publications*/
+                    this.stats = response;
+                    console.log(response);
                 }else{
                     this.status="error";
                 }

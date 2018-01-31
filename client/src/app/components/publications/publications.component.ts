@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import {GLOBAL} from '../../services/global';
@@ -23,6 +23,7 @@ export class PublicationsComponent implements OnInit{
     public pages:number;
     public itemsPerPage:number;
     public publications:Publication[];
+    @Input() user:string;
 
     constructor(
         private _route:ActivatedRoute,
@@ -39,12 +40,12 @@ export class PublicationsComponent implements OnInit{
 
     ngOnInit(){
         console.log("publications.component charged");
-        this.getPublications(this.page);
+        this.getPublications(this.user,this.page);
     }
 
-    getPublications(page, adding=false){
+    getPublications(user, page, adding=false){
         console.log(page);
-        this._publicationService.getPublications(this.token,page).subscribe(
+        this._publicationService.getPublicationsUser(this.token,user, page).subscribe(
             response=>{
                 if(response.publications){
                     this.total=response.total_items;
@@ -61,7 +62,7 @@ export class PublicationsComponent implements OnInit{
 
                         /*smooth scroll */
                         $("html, body").animate(
-                            {scrollTop: $('body').prop("scrollHeight")},
+                            {scrollTop: $('html').prop("scrollHeight")},
                             500
                         );
                     }
@@ -82,11 +83,10 @@ export class PublicationsComponent implements OnInit{
 
     public noMore = false;
     viewMore(){
-        if(this.publications.length == (this.total)){
+        this.page++;
+        if(this.page == this.pages){
             this.noMore=true;
-        }else{
-            this.page++;
-            this.getPublications(this.page,true);
         }
+        this.getPublications(this.user,this.page,true);
     }
 }

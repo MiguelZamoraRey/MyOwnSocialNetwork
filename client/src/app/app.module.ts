@@ -32,6 +32,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     SidebarComponent,
     TimelineComponent,
     ProfileComponent,
+    PublicationsComponent
   ],
   //aqui se cargan modulos
   imports: [

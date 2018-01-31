@@ -28,7 +28,7 @@
         </div>
     </div>
 </div>
-<div class="col-sm-8 col-xs-12 text-center">
+<div class="col-sm-8 col-xs-12 text-center" *ngIf="publications && publications.length">
     <p>
         <button (click)="viewMore()" class="btn btn-lg btn-success" *ngIf="!noMore">
             See More Publications

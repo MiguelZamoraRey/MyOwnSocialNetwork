@@ -9,11 +9,12 @@ import { EventEmitter, Input, Output} from '@angular/core';
 /*Importe del servicio*/
 import {UserService} from '../../services/user.service';
 import {PublicationService} from '../../services/publication.service';
+import {UploadService} from '../../services/upload.service';
 
 @Component({
     selector: 'sidebar',
     templateUrl: './sidebar.component.html',
-    providers:[UserService,PublicationService]
+    providers:[UserService,PublicationService,UploadService]
 })
 export class SidebarComponent implements OnInit{
     public url:string;
@@ -27,7 +28,8 @@ export class SidebarComponent implements OnInit{
         private _userService:UserService,
         private _publicationService:PublicationService,
         private _route:ActivatedRoute,
-        private _router:Router
+        private _router:Router,
+        private _uploadService:UploadService
     ){
         this.identity = this._userService.getIdentity();
         this.token = this._userService.getToken();
@@ -40,13 +42,28 @@ export class SidebarComponent implements OnInit{
         console.log('sidebar cargado');
     }
 
+    public filesToUpload:Array<File>;
+    fileChangeEvent(fileInput:any){
+        this.filesToUpload = <Array<File>>fileInput.target.files;
+    }
+
     onSubmit(newPubForm){
         this._publicationService.addPublicaton(this.token,this.publication).subscribe(
             response=>{
                 if(response.publication){
-                    newPubForm.reset();
                     this.status = "success";
-                    this._router.navigate(['/timeline']);
+
+                    //uploadImage
+                    this._uploadService.makeFileRequest(
+                        this.url+'publication-image/'+response.publication._id,
+                        [],
+                        this.filesToUpload,
+                        this.token,
+                        'image').then((result:any)=>{
+                            this.publication.file = result.image;
+                            newPubForm.reset();
+                            this._router.navigate(['/timeline']);
+                        });
                 }else{
                     this.status = "error";
                 }
