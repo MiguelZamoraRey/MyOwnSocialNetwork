@@ -62,7 +62,7 @@
     <div class="alert alert-dager" *ngIf="status == 'error'">
         Ops... we have a problem :(, try to do it in a few minutes...
     </div>
-    <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm);sendPublication($event);" class="col-xs-10">
+    <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm,$event);" class="col-xs-10">
         <p>
             <label>
                 What do you want to share?

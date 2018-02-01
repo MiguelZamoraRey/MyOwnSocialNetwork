@@ -60,12 +60,14 @@ export class SidebarComponent implements OnInit{
                             this.token,
                             'image').then((result:any)=>{
                                 this.publication.file = result.image;
+                                this.sended.emit({send:'true'});
                                 newPubForm.reset();
                                 this._router.navigate(['/timeline']);
                         });
                     }else{
                         newPubForm.reset();
                         this._router.navigate(['/timeline']);
+                        this.sended.emit({send:'true'});
                     }
                     this.status = "success";
                 }else{

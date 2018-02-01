@@ -71,7 +71,7 @@
                         {{publication.text}}
                     </h4>
                     
-                    <div class="col-xs-12" *ngIf="publication.file">
+                    <div class="col-xs-12" *ngIf="publication.file!='null'">
                         <img class="publication-image" src="{{url + 'publication-image/' + publication.file}}"/>
                     </div>
                 </div>
