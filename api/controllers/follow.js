@@ -38,15 +38,19 @@ function deleteFollow(req,res){
     Follow.find({
         'user':userId,
         'followed':followId
-    }).remove((err)=>{
-        return res.status(500).send({
-            message: "Error in deleteFollow"
-        })
+    }).remove((err,followedDeleted)=>{
+        if(err){
+            return res.status(500).send({
+                message: "Error in deleteFollow"
+            });
+        }        
+
+        return res.status(200).send({
+            message:"The user has been unfollowed"
+        });
     });
 
-    return res.status(200).send({
-        message:"The user has been unfollowed"
-    });
+    
 }
 
 //usuarios a los que sigo o a los que sigue el param
