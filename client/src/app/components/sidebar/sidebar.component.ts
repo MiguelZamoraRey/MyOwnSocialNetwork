@@ -50,20 +50,24 @@ export class SidebarComponent implements OnInit{
     onSubmit(newPubForm){
         this._publicationService.addPublicaton(this.token,this.publication).subscribe(
             response=>{
-                if(response.publication){
-                    this.status = "success";
-
-                    //uploadImage
-                    this._uploadService.makeFileRequest(
-                        this.url+'publication-image/'+response.publication._id,
-                        [],
-                        this.filesToUpload,
-                        this.token,
-                        'image').then((result:any)=>{
-                            this.publication.file = result.image;
-                            newPubForm.reset();
-                            this._router.navigate(['/timeline']);
+                if(response.publication){                
+                    if(this.filesToUpload && this.filesToUpload.length){
+                         //uploadImage
+                        this._uploadService.makeFileRequest(
+                            this.url+'publication-image/'+response.publication._id,
+                            [],
+                            this.filesToUpload,
+                            this.token,
+                            'image').then((result:any)=>{
+                                this.publication.file = result.image;
+                                newPubForm.reset();
+                                this._router.navigate(['/timeline']);
                         });
+                    }else{
+                        newPubForm.reset();
+                        this._router.navigate(['/timeline']);
+                    }
+                    this.status = "success";
                 }else{
                     this.status = "error";
                 }

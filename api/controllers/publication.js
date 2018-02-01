@@ -171,12 +171,6 @@ function deletePublication(req,res){
             return res.status(500).send({
                 message:"error when deleting publication"
             });
-        } 
-
-        if(!publicationRemoved){
-            return res.status(404).send({
-                message:"Publications is not deleted"
-            });
         }
 
         return res.status(200).send({

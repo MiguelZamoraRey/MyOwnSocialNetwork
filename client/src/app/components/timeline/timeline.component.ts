@@ -91,7 +91,22 @@ export class TimelineComponent implements OnInit{
     }
 
     //se llama desde la plantilla cuando el sidebar envia una publicacion
-    refresh(event){
+    refresh(event = null){
        this.getPublications(1);//siempre la 1 para resetear
+    }
+
+    deletePublication(id){
+        this._publicationService.deletePublication(this.token,id).subscribe(
+            response=>{
+                this.refresh();
+            },
+            error=>{
+                var errorMsg = <any>error;
+                console.log(errorMsg);
+                if(errorMsg!=null){
+                    this.status = "error";
+                }
+            }
+        );
     }
 }

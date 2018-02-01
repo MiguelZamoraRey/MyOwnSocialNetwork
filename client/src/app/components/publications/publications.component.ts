@@ -89,4 +89,20 @@ export class PublicationsComponent implements OnInit{
         }
         this.getPublications(this.user,this.page,true);
     }
+
+    deletePublication(id){
+        debugger;
+        this._publicationService.deletePublication(this.token,id).subscribe(
+            response=>{
+                location.reload();
+            },
+            error=>{
+                var errorMsg = <any>error;
+                console.log(errorMsg);
+                if(errorMsg!=null){
+                    this.status = "error";
+                }
+            }
+        );
+    }
 }
