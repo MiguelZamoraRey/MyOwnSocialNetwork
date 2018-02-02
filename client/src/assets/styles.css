@@ -20,6 +20,10 @@
     max-height: 100px;
 }
 
+.people{
+    min-height: 500px;
+}
+
 /*PEOPLE*/
 
 .item-user .image-user{ 

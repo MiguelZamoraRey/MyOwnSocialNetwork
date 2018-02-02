@@ -12,6 +12,8 @@ import {UserEditComponent} from './components/user-edit/user-edit.component';
 import { UsersComponent } from './components/users/users.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { FollowingComponent } from './components/following/following.component';
+import { FollowedComponent } from './components/followed/followed.component';
 
 //definimos en una constante las rutas que queremos
 const appRoutes: Routes = [
@@ -24,6 +26,10 @@ const appRoutes: Routes = [
     {path:'people', component:UsersComponent},
     {path:'timeline', component:TimelineComponent},
     {path:'profile/:id', component:ProfileComponent},
+    {path:'following/:id/:page', component:FollowingComponent},
+    {path:'following/:id', component:FollowingComponent},
+    {path:'followed/:id/:page', component:FollowedComponent},
+    {path:'followed/:id', component:FollowedComponent},
     {path:'**', component:HomeComponent}
 ];
 

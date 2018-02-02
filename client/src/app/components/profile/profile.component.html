@@ -62,7 +62,7 @@
         </div>
         <div class="stats row continer-fluid" *ngIf="stats">
             <div class="following-data col-xs-4">
-                <a href="#">
+                <a [routerLink]="['/following',user._id]">
                     <span class="label-stats">
                         Following
                     </span>
@@ -72,7 +72,7 @@
                 </a>
             </div>
             <div class="following-data col-xs-4">
-                <a href="#">
+                <a [routerLink]="['/following',identity._id]">
                     <span class="label-stats">
                         Followed
                     </span>

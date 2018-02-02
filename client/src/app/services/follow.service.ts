@@ -32,4 +32,18 @@ export class FollowService{
         
         return this._http.delete(this.url+'follow/'+userId,{headers:headers});
     }
+
+    getFollowing(token,userId=null,page=1):Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type','application/json')
+                                        .set('Authorization',token);
+        
+        return this._http.get(this.url+'following/'+userId+'/'+page,{headers:headers});
+    }
+
+    getFollowed(token,userId=null,page=1):Observable<any>{
+        let headers = new HttpHeaders().set('Content-Type','application/json')
+                                        .set('Authorization',token);
+        
+        return this._http.get(this.url+'followed/'+userId+'/'+page,{headers:headers});
+    }
 }

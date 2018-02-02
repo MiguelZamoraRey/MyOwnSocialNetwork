@@ -91,10 +91,14 @@ function getFollowingUsers(req,res){
             });
         }
 
-        return res.status(200).send({
-            total:total,
-            pages: Math.ceil(total/ItemsPerPage),
-            follows
+        followUserIds(userId).then((value)=>{
+            return res.status(200).send({
+                total:total,
+                pages: Math.ceil(total/ItemsPerPage),
+                follows,
+                users_following: value.following,
+                users_follow_me: value.followed
+            });
         });
     });
 }
@@ -137,10 +141,14 @@ function getFollowedUsers(req,res){
             });
         }
 
-        return res.status(200).send({
-            total:total,
-            pages: Math.ceil(total/ItemsPerPage),
-            follows
+        followUserIds(userId).then((value)=>{
+            return res.status(200).send({
+                total:total,
+                pages: Math.ceil(total/ItemsPerPage),
+                follows,
+                users_following: value.following,
+                users_follow_me: value.followed
+            });
         });
     });
 }
@@ -175,6 +183,50 @@ function getMyFollows(req,res){
             follows
         });
     });
+}
+
+async function followUserIds(user_Id){
+
+    //FOLLOWIG
+    //con el select desmarcamos campos que no queremos
+    var following = await Follow.find({
+        'user':user_Id
+    }).select({
+        '_id':0,
+        '__v':0,
+        'user':0
+    }).exec((err,follows)=>{
+        return follows;
+    });
+
+    //process following --> para que devuelva un array de ids limpio
+    var following_clean = [];
+    following.forEach((item)=>{
+        following_clean.push(item.followed);
+    });
+
+    //FOLLOWED
+    //con el select desmarcamos campos que no queremos
+    var followed = await Follow.find({
+        'followed':user_Id
+    }).select({
+        '_id':0,
+        '__v':0,
+        'followed':0
+    }).exec((err,follows)=>{
+        return follows;
+    });
+
+    //process followed --> para que devuelva un array de ids limpio
+    var followed_clean = [];
+    followed.forEach((item)=>{
+        followed_clean.push(item.user);
+    });
+
+    return {
+        following:following_clean,
+        followed:followed_clean
+    }
 }
 
 module.exports={
