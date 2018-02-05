@@ -1,8 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-//import { HttpModule } from '@angular/http';//old
-import { HttpClientModule } from '@angular/common/http';//new
+import { HttpClientModule } from '@angular/common/http';
+
+//Modulo Custom
+import {MessagesModule} from './messages/messages.module';
 
 //routes imports(modulos)
 import { routing, appRoutingProviders } from './app.routing';
@@ -44,7 +46,8 @@ import { FollowedComponent } from './components/followed/followed.component';
     FormsModule,
     HttpClientModule,
     routing,
-    MomentModule
+    MomentModule,
+    MessagesModule  //custom module
   ],
   //servicios
   providers: [

@@ -1,6 +1,9 @@
 <div class="col-sm-8 col-xs-12">
-    <h1 class="h1-strong">
+    <h1 class="h1-strong" *ngIf="userTarget && userTarget.nick">
         {{title+' by '+ userTarget.nick}}
+    </h1>
+    <h1 class="h1-strong" *ngIf="!userTarget || !userTarget.nick">
+        {{title}}
     </h1>
     <div class="people">
         <div *ngFor="let follow of following" class="item-user">
