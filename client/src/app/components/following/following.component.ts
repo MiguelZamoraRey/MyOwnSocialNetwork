@@ -29,6 +29,7 @@ export class FollowingComponent implements OnInit{
     public follows;
     public following;
     public userIdObj;
+    public userTarget:User;
 
     constructor(
         private _route:ActivatedRoute,
@@ -81,7 +82,6 @@ export class FollowingComponent implements OnInit{
                 if(!response.follows){
                     this.status = "error";
                 }else{
-                    console.log(response);
                     this.total=response.total;
                     this.following = response.follows;
                     this.pages = response.pages;
@@ -89,6 +89,7 @@ export class FollowingComponent implements OnInit{
                     if(page > this.pages){
                             this._router.navigate(['/following',1]);
                     }
+                    this.getUserTarget(userId);
                 }
             },
             error=>{
@@ -155,6 +156,25 @@ export class FollowingComponent implements OnInit{
                 }
             }
         )
+    }
+
+    getUserTarget(userId){
+        this._userService.getUser(userId).subscribe(
+            response=>{
+                if(!response.user){
+                    this.status = "error";
+                }else{
+                    this.userTarget = response.user;
+                }
+            },
+            error=>{
+                var errorMsg = error;
+                console.log(errorMsg);
+                if(errorMsg!=null){
+                    this.status = "error";
+                }
+            }
+        );
     }
 
 }
