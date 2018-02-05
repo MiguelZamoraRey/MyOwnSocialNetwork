@@ -11,7 +11,7 @@ import { routing, appRoutingProviders } from './app.routing';
 import {MomentModule} from 'angular2-moment';
 
 //componentes
-import { AppComponent } from './app.component';
+import {AppComponent}  from './app.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
 import {HomeComponent} from './components/home/home.component';
@@ -23,6 +23,10 @@ import { PublicationsComponent } from './components/publications/publications.co
 import { ProfileComponent } from './components/profile/profile.component';
 import { FollowingComponent } from './components/following/following.component';
 import { FollowedComponent } from './components/followed/followed.component';
+
+//Servicios para el guard
+import {UserService} from './services/user.service';
+import {UserGuard} from './services/user.guard';
 
 @NgModule({
   //aqui se cargan los componentes
@@ -51,7 +55,7 @@ import { FollowedComponent } from './components/followed/followed.component';
   ],
   //servicios
   providers: [
-    appRoutingProviders
+    appRoutingProviders,UserService,UserGuard
   ],
   bootstrap: [AppComponent]
 })
