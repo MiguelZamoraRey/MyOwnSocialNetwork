@@ -26,6 +26,12 @@
             People
           </a>
         </li>
+        <li>
+          <a [routerLink]="['messages']" [routerLinkActive]="['active']">
+            <span class="glyphicon glyphicon-envelope"></span>
+            Messages
+          </a>
+        </li>
       </ul>
       <!--Se muestran estas opciones cuando no estamos logados-->
       <ul class="nav navbar navbar-nav navbar-right" *ngIf="!identity">

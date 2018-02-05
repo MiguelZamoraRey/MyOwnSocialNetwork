@@ -141,11 +141,8 @@ export class FollowedComponent implements OnInit{
                 var search = this.follows.indexOf(followed);
 
                 if(search != -1){
-                    console.log(followed);
-                    console.log(this.follows);
                     /*al eliminarlo del array ya dinamicamente angular refresca los botones */
                     this.follows.splice(search, 1);
-                    console.log(this.follows);
                 }                
             },
             error=>{

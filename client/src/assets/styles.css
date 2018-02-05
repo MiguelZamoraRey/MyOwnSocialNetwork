@@ -350,3 +350,39 @@
     margin-top: 30px;
 }
 
+/*Messages*/
+
+.item-message .image-user{ 
+    width: 25px;
+    height: 25px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 9px;
+    margin-right: 15px;
+}
+
+.item-message .image-user img{ 
+    width:100% !important;
+}
+
+.item-message .user-name{
+    margin-top: 20px;
+}
+
+.item-message .user-name .nickname{
+    color:#969393;
+}
+
+.item-message .user-name .name-surname a{
+    color:#d3322d;
+    font-weight:bold;
+}
+
+.item-message .user-name .name-surname a:hover{
+    color:#9c1111;
+    font-weight:bold;
+}
+
+.item-message .message-text{
+    margin-top: 20px;
+}

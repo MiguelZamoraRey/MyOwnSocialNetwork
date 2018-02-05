@@ -54,7 +54,9 @@ function getReceivedMessages(req,res){
     Message.find({
         receiver: user_id
         //el segundo parametro del populate nos srve para decir que campor queremos popularizar
-    }).populate('emitter', 'name surname _id nick image').paginate(page, itemsPerPage, (err, messages, total)=>{
+    }).populate('emitter', 'name surname _id nick image')
+    .sort('-created_at')
+    .paginate(page, itemsPerPage, (err, messages, total)=>{
         if(err){
             return res.status(500).send({
                 message:"Error when getting message"
@@ -88,7 +90,9 @@ function getEmmitMessages(req,res){
     Message.find({
         emitter: user_id
         //el segundo parametro del populate nos srve para decir que campor queremos popularizar
-    }).populate('emitter receiver', 'name surname _id nick image').paginate(page, itemsPerPage, (err, messages, total)=>{
+    }).populate('emitter receiver', 'name surname _id nick image')
+    .sort('-created_at')
+    .paginate(page, itemsPerPage, (err, messages, total)=>{
         if(err){
             return res.status(500).send({
                 message:"Error when getting message"

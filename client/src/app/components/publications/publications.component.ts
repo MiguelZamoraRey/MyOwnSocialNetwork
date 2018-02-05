@@ -44,15 +44,13 @@ export class PublicationsComponent implements OnInit{
     }
 
     getPublications(user, page, adding=false){
-        console.log(page);
         this._publicationService.getPublicationsUser(this.token,user, page).subscribe(
             response=>{
                 if(response.publications){
                     this.total=response.total_items;
                     this.pages = response.pages;
                     this.itemsPerPage= response.items_per_page;
-                    console.log(response);
-                    
+                                        
                     if(!adding){
                         this.publications = response.publications;
                     }else{

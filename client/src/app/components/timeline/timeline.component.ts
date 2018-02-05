@@ -43,15 +43,13 @@ export class TimelineComponent implements OnInit{
     }
 
     getPublications(page, adding=false){
-        console.log(page);
         this._publicationService.getPublications(this.token,page).subscribe(
             response=>{
                 if(response.publications){
                     this.total=response.total_items;
                     this.pages = response.pages;
                     this.itemsPerPage= response.items_per_page;
-                    console.log(response);
-                    
+
                     if(!adding){
                         this.publications = response.publications;
                     }else{

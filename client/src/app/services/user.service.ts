@@ -21,8 +21,6 @@ export class UserService{
 
     //metodo para llamar al backend
     register(user: User): Observable<any>{
-        //console.log(user);
-        //console.log(this.url);
         let params = JSON.stringify(user);
         let headers = new HttpHeaders().set('Content-Type', 'application/json');
         return this._http.post(this.url+'register',params,{headers:headers});
@@ -86,7 +84,6 @@ export class UserService{
         let params = JSON.stringify(user);
         let headers = new HttpHeaders().set('Content-Type','application/json')
                                         .set('Authorization',this.getToken());
-        console.log(user);
         return this._http.put(this.url+'user/' + user._id,params, {headers:headers});
     }
 
