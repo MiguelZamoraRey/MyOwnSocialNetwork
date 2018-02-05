@@ -7,36 +7,36 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="image-user pull-left">
-                        <a [routerLink]="['/profile',follow.followed._id]" [routerLinkActive]="['active']">
-                            <img alt="" src="{{url+'user-image/' + follow.followed.image}}" *ngIf="follow.followed.image"/>
-                            <img class="avatar-default" alt="" src="assets/default-user.jpg" *ngIf="!follow.followed.image"/>
+                        <a [routerLink]="['/profile',follow.user._id]" [routerLinkActive]="['active']">
+                            <img alt="" src="{{url+'user-image/' + follow.user.image}}" *ngIf="follow.user.image"/>
+                            <img class="avatar-default" alt="" src="assets/default-user.jpg" *ngIf="!follow.user.image"/>
                         </a>
                     </div>
                     <div class="user-name pull-left">
                         <p class="name-surname">
-                            <a [routerLink]="['/profile',follow.followed._id]" [routerLinkActive]="['active']">
-                                {{follow.followed.name + ' ' + follow.followed.surname}}
+                            <a [routerLink]="['/profile',follow.user._id]" [routerLinkActive]="['active']">
+                                {{follow.user.name + ' ' + follow.user.surname}}
                             </a>
                         </p>
                         <p class="nickname">
-                            {{follow.followed.nick}}
+                            {{follow.user.nick}}
                         </p>
                     </div>
                     
-                    <div class="pull-right" *ngIf="follow.followed._id != identity._id">
+                    <div class="pull-right" *ngIf="follow.user._id != identity._id">
                         <button class="btn btn-primary" 
-                                *ngIf="follows.indexOf(follow.followed._id) < 0"
-                                (click)="followUser(follow.followed._id)">
+                                *ngIf="follows.indexOf(follow.user._id) < 0"
+                                (click)="followUser(follow.user._id)">
                             <span class="glyphicon glyphicon-plus-sign"></span>
                         </button>
                         <button class="btn btn-success" 
-                                *ngIf="follows.indexOf(follow.followed._id) >= 0"
-                                (mouseover)="mouseEnter(follow.followed._id)"
-                                (mouseleave)="mouseLeave(follow.followed._id)"
-                                (click)="unfollowUser(follow.followed._id)"
-                                [class.btn-danger]="follow.followed._id == followUserOver"
+                                *ngIf="follows.indexOf(follow.user._id) >= 0"
+                                (mouseover)="mouseEnter(follow.user._id)"
+                                (mouseleave)="mouseLeave(follow.user._id)"
+                                (click)="unfollowUser(follow.user._id)"
+                                [class.btn-danger]="follow.user._id == followUserOver"
                                 >
-                            <span *ngIf="follow.followed._id == followUserOver; else following">
+                            <span *ngIf="follow.user._id == followUserOver; else following">
                                     <span class="glyphicon glyphicon-minus-sign"></span>
                             </span>
                             <ng-template #following>

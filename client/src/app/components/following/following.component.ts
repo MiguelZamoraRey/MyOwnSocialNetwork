@@ -43,7 +43,7 @@ export class FollowingComponent implements OnInit{
     }
 
     ngOnInit(){
-        console.log('users.component succesfully charged');
+        console.log('following.component succesfully charged');
         this.actualPage();
     }
 
@@ -87,7 +87,7 @@ export class FollowingComponent implements OnInit{
                     this.pages = response.pages;
                     this.follows = response.users_following;
                     if(page > this.pages){
-                            this._router.navigate(['/people',1]);
+                            this._router.navigate(['/following',1]);
                     }
                 }
             },

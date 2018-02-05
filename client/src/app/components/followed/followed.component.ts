@@ -43,7 +43,7 @@ export class FollowedComponent implements OnInit{
     }
 
     ngOnInit(){
-        console.log('users.component succesfully charged');
+        console.log('followed.component succesfully charged');
         this.actualPage();
     }
 
@@ -70,12 +70,12 @@ export class FollowedComponent implements OnInit{
                 }
 
                 //devolver listado users
-                this.getFollows(userId,page);
+                this.getFollowMe(userId,page);
             }
         );
     }
 
-    getFollows(userId,page){
+    getFollowMe(userId,page){
         this._followService.getFollowed(this.token,userId,page).subscribe(
             response=>{
                 if(!response.follows){
@@ -85,9 +85,9 @@ export class FollowedComponent implements OnInit{
                     this.total=response.total;
                     this.followed = response.follows;
                     this.pages = response.pages;
-                    this.follows = response.users_followed;
+                    this.follows = response.users_following;
                     if(page > this.pages){
-                            this._router.navigate(['/people',1]);
+                            this._router.navigate(['/followed',1]);
                     }
                 }
             },

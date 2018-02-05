@@ -235,6 +235,10 @@
     margin:0 auto;
 }
 
+.publication-image-div{
+    margin-top: 20px;
+}
+
 /*profile*/
 #data-profile{
     min-height: 500px;
